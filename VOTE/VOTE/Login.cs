@@ -16,5 +16,17 @@ namespace VOTE
         {
             InitializeComponent();
         }
+
+        private void loginButton_Click(object sender, EventArgs e)
+        {
+            SelectBallot selectBallot = new SelectBallot();
+            selectBallot.Show();
+        }
+
+        private void registerButton_Click(object sender, EventArgs e)
+        {
+            SelectBallot selectBallot = new SelectBallot();
+            selectBallot.Show();
+        }
     }
 }

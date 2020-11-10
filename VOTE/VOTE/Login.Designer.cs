@@ -47,7 +47,7 @@
             this.registerBirthdateLabel = new System.Windows.Forms.Label();
             this.registerGenderLabel = new System.Windows.Forms.Label();
             this.registerRaceLabel = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.registerBirthdateDatePicker = new System.Windows.Forms.DateTimePicker();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.loginGroupBox.SuspendLayout();
             this.registerGroupBox.SuspendLayout();
@@ -121,7 +121,7 @@
             // 
             // registerGroupBox
             // 
-            this.registerGroupBox.Controls.Add(this.dateTimePicker1);
+            this.registerGroupBox.Controls.Add(this.registerBirthdateDatePicker);
             this.registerGroupBox.Controls.Add(this.registerUsernameLabel);
             this.registerGroupBox.Controls.Add(this.registerRaceLabel);
             this.registerGroupBox.Controls.Add(this.registerButton);
@@ -250,13 +250,13 @@
             this.registerRaceLabel.TabIndex = 22;
             this.registerRaceLabel.Text = "Race";
             // 
-            // dateTimePicker1
+            // registerBirthdateDatePicker
             // 
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(9, 150);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(177, 20);
-            this.dateTimePicker1.TabIndex = 24;
+            this.registerBirthdateDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.registerBirthdateDatePicker.Location = new System.Drawing.Point(9, 150);
+            this.registerBirthdateDatePicker.Name = "registerBirthdateDatePicker";
+            this.registerBirthdateDatePicker.Size = new System.Drawing.Size(177, 20);
+            this.registerBirthdateDatePicker.TabIndex = 24;
             // 
             // textBox1
             // 
@@ -296,7 +296,7 @@
         private System.Windows.Forms.Label loginPasswordLabel;
         private System.Windows.Forms.GroupBox loginGroupBox;
         private System.Windows.Forms.GroupBox registerGroupBox;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker registerBirthdateDatePicker;
         private System.Windows.Forms.Label registerUsernameLabel;
         private System.Windows.Forms.Label registerRaceLabel;
         private System.Windows.Forms.Label registerGenderLabel;

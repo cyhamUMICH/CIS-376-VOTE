@@ -8,21 +8,21 @@ namespace VOTE
 {
     class User
     {
-        private String username;
-        private String password;
-        private String state;
-        private String dateOfBirth;
-        private String gender;
-        private String race;
+        public String Username { get; set; }
+        public String Password { get; set; }
+        public String State { get; set; }
+        public String DateOfBirth { get; set; }
+        public String Gender { get; set; }
+        public String Race { get; set; }
 
         public User(String username, String password, String state, String dateOfBirth, String gender, String race)
         {
-            this.username = username;
-            this.password = password;
-            this.state = state;
-            this.dateOfBirth = dateOfBirth;
-            this.gender = gender;
-            this.race = race;
+            this.Username = username;
+            this.Password = password;
+            this.State = state;
+            this.DateOfBirth = dateOfBirth;
+            this.Gender = gender;
+            this.Race = race;
         }
     }
 }

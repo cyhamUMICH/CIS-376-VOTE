@@ -24,7 +24,13 @@ namespace VOTE
         private void loginButton_Click(object sender, EventArgs e)
         {
             SelectBallot selectBallot = new SelectBallot();
-            selectBallot.Show();
+            String username = loginUsernameTextBox.Text;
+            String password = loginPasswordTextBox.Text;
+
+            if (database.authenticateUser(username, password) != null)
+            {
+                selectBallot.Show();
+            }
         }
 
         private void registerButton_Click(object sender, EventArgs e)
@@ -42,6 +48,11 @@ namespace VOTE
             User user = new User(username, password, state, birthdate, gender, race);
 
             database.createNewUser(user);
+
+            this.Hide();
+            SelectBallot selectBallot = new SelectBallot();
+            selectBallot.Show();
+            this.Close();
         }
     }
 }

@@ -15,6 +15,7 @@ namespace VOTE
         public ViewBallot()
         {
             InitializeComponent();
+            DatabaseInterface db = DatabaseInterface.getInstance();
         }
     }
 }

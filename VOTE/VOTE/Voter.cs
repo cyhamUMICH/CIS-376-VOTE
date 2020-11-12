@@ -8,5 +8,6 @@ namespace VOTE
 {
     public class Voter
     {
+
     }
 }

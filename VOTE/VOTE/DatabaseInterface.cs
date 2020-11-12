@@ -80,15 +80,49 @@ namespace VOTE
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    return null;
+                    while (reader.Read())
+                    {
+                        User user = new User((int)reader[0], (String)reader[1], (String)reader[2], (String)reader[4], (String)reader[5], (String)reader[6], (String)reader[7], (Boolean)reader[3]);
+
+                        if (user.Password == password)
+                        {
+                            return user;
+                        }
+                    }
                 }
 
+                return null;
             }
         }
 
         public Boolean doesUserExist(string username)
         {
-            return true;
+            connection.Open();
+            try
+            {
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT count(*) FROM [User] WHERE username=@username";
+                    command.Parameters.AddWithValue("@username", username);
+
+                    int userCount = (int)command.ExecuteScalar();
+
+                    if (userCount > 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return false;
         }
     }
 }

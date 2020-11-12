@@ -23,21 +23,25 @@ namespace VOTE
 
         private void loginButton_Click(object sender, EventArgs e)
         {
-            SelectBallot selectBallot = new SelectBallot();
             String username = loginUsernameTextBox.Text;
             String password = loginPasswordTextBox.Text;
 
-            if (database.authenticateUser(username, password) != null)
+            User user = database.authenticateUser(username, password);
+
+            if (user != null)
             {
+                this.Hide();
+                SelectBallot selectBallot = new SelectBallot(user);
                 selectBallot.Show();
+                this.Close();
+            } else
+            {
+                MessageBox.Show("Either user does not exist or password is incorrect");
             }
         }
 
         private void registerButton_Click(object sender, EventArgs e)
         {
-            //SelectBallot selectBallot = new SelectBallot();
-            //selectBallot.Show();
-
             String username = registerUsernameTextBox.Text;
             String password = registerPasswordTextBox.Text;
             String state = registerStateComboBox.Text;
@@ -45,12 +49,24 @@ namespace VOTE
             String gender = registerGenderComboBox.Text;
             String race = registerRaceComboBox.Text;
 
+            if (username == "" || password == "" || state == "" || birthdate == "" || gender == "" || race == "")
+            {
+                MessageBox.Show("One or more of the fields were left empty");
+                return;
+            }
+
+            if (database.doesUserExist(username))
+            {
+                MessageBox.Show("User with given username already exists");
+                return;
+            }
+
             User user = new User(username, password, state, birthdate, gender, race);
 
             database.createNewUser(user);
 
             this.Hide();
-            SelectBallot selectBallot = new SelectBallot();
+            SelectBallot selectBallot = new SelectBallot(user);
             selectBallot.Show();
             this.Close();
         }

@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace VOTE
 {
-    public class Administrator
+    public class Option
     {
-
     }
 }

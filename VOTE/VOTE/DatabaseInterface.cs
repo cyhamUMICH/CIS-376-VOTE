@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace VOTE
 {
-    class DatabaseInterface
+    public class DatabaseInterface
     {
 
         private static DatabaseInterface instance = null;
@@ -84,6 +84,11 @@ namespace VOTE
                 }
 
             }
+        }
+
+        public Boolean doesUserExist(string username)
+        {
+            return true;
         }
     }
 }

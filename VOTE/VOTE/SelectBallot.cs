@@ -12,9 +12,13 @@ namespace VOTE
 {
     public partial class SelectBallot : Form
     {
-        public SelectBallot()
+        User user;
+
+        public SelectBallot(User user)
         {
             InitializeComponent();
+
+            this.user = user;
         }
 
         private void viewButton_Click(object sender, EventArgs e)

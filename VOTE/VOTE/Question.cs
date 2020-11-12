@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VOTE
 {
-    class Question
+    public class Question
     {
     }
 }

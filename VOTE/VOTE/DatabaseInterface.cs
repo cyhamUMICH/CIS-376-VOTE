@@ -73,26 +73,46 @@ namespace VOTE
 
         public User authenticateUser(string username, string password)
         {
-            using (SqlCommand command = connection.CreateCommand())
+            connection.Open();
+
+            try
             {
-                command.CommandText = "SELECT * FROM [User] WHERE username=@username";
-                command.Parameters.AddWithValue("@username", username);
-
-                using (SqlDataReader reader = command.ExecuteReader())
+                using (SqlCommand command = connection.CreateCommand())
                 {
-                    while (reader.Read())
-                    {
-                        User user = new User((int)reader[0], (String)reader[1], (String)reader[2], (String)reader[4], (String)reader[5], (String)reader[6], (String)reader[7], (Boolean)reader[3]);
+                    command.CommandText = "SELECT * FROM [User] WHERE username=@username";
+                    command.Parameters.AddWithValue("@username", username);
 
-                        if (user.Password == password)
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
                         {
-                            return user;
+                            int userId = reader.GetInt32(0);
+                            String usernameDb = reader.GetString(1).TrimEnd();
+                            String passwordDb = reader.GetString(2).TrimEnd();
+                            String state = reader.GetString(4).TrimEnd();
+                            DateTime dateOfBirth = reader.GetDateTime(5);
+                            String gender = reader.GetString(6).TrimEnd();
+                            String race = reader.GetString(7).TrimEnd();
+                            Boolean administrator = reader.GetBoolean(3);
+
+                            User user = new User(userId, usernameDb, passwordDb, state, dateOfBirth.ToString("yyyy-MM-dd"), gender, race, administrator);
+
+                            if (user.Password == password)
+                            {
+                                return user;
+                            }
                         }
                     }
                 }
-
-                return null;
+            } catch (SqlException e)
+            {
+                MessageBox.Show(e.Message);
+            } finally
+            {
+                connection.Close();
             }
+
+            return null;
         }
 
         public Boolean doesUserExist(string username)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using BCrypt.Net;
 using System.Configuration;
 using System.Linq;
 using System.Text;
@@ -50,7 +51,7 @@ namespace VOTE
                 {
                     command.CommandText = "INSERT INTO [User](username, password, administrator, state, birthdate, gender, race) VALUES (@username, @password, @administrator, @state, @birthdate, @gender, @race)";
                     command.Parameters.AddWithValue("@username", user.Username);
-                    command.Parameters.AddWithValue("@password", user.Password);
+                    command.Parameters.AddWithValue("@password", BCrypt.Net.BCrypt.HashPassword(user.Password, BCrypt.Net.BCrypt.GenerateSalt(12)));
                     command.Parameters.AddWithValue("@administrator", 0);
                     command.Parameters.AddWithValue("@state", user.State);
                     command.Parameters.AddWithValue("@birthdate", user.DateOfBirth);
@@ -88,7 +89,7 @@ namespace VOTE
                         {
                             int userId = reader.GetInt32(0);
                             String usernameDb = reader.GetString(1).TrimEnd();
-                            String passwordDb = reader.GetString(2).TrimEnd();
+                            String passwordDb = reader.GetString(2);
                             String state = reader.GetString(4).TrimEnd();
                             DateTime dateOfBirth = reader.GetDateTime(5);
                             String gender = reader.GetString(6).TrimEnd();
@@ -97,7 +98,7 @@ namespace VOTE
 
                             User user = new User(userId, usernameDb, passwordDb, state, dateOfBirth.ToString("yyyy-MM-dd"), gender, race, administrator);
 
-                            if (user.Password == password)
+                            if (BCrypt.Net.BCrypt.Verify(password, user.Password))
                             {
                                 return user;
                             }

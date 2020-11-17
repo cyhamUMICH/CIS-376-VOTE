@@ -41,9 +41,28 @@ namespace VOTE
             return instance;
         }
 
-        public void changeBallotDate(Ballot ballot, DateTime date)
+        public void changeBallotDueDate(Ballot ballot, DateTime date)
         {
+            connection.Open();
 
+            try
+            {
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "UPDATE Ballot SET dueDate = @dueDate WHERE ballotID = @ballotID";
+                    command.Parameters.AddWithValue("@ballotID", ballot.BallotId);
+                    command.Parameters.AddWithValue("@dueDate", ballot.DueDate);
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         public void createNewUser(User user)

@@ -70,7 +70,10 @@ namespace VOTE
             DateTime now = DateTime.UtcNow;
             Ballot ballot;
 
-            //this.database.changeBallotDate(ballot, now);
+            ballot = (Ballot)ballotListBox.SelectedItem;
+
+            this.database.changeBallotDueDate(ballot, now);
+            
             // Modify date of ballot to current date
         }
     }

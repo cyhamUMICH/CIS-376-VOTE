@@ -39,21 +39,14 @@ namespace VOTE
 
         private void SelectBallot_Load(object sender, EventArgs e)
         {
-            List<Ballot> ballots;
-            
-            if (this.user.Administrator == true)
+
+            if (this.user.Administrator == false)
             {
-                ballots = database.getAllBallots();
-            } else
-            {
-                ballots = database.getActiveBallots();
                 disableButton.Enabled = false;
                 createButton.Enabled = false;
             }
 
-            ballotListBox.DisplayMember = "Name";
-            ballotListBox.DataSource = ballots;
-
+            updateItems();
             /*
             foreach (Ballot ballot in ballots)
             {
@@ -73,8 +66,43 @@ namespace VOTE
             ballot = (Ballot)ballotListBox.SelectedItem;
 
             this.database.changeBallotDueDate(ballot, now);
-            
+
+            updateItems();
+
             // Modify date of ballot to current date
+        }
+
+        private void updateItems()
+        {
+            List<Ballot> ballots;
+
+            if (this.user.Administrator == true)
+            {
+                ballots = database.getAllBallots();
+            }
+            else
+            {
+                ballots = database.getActiveBallots();
+            }
+
+            ballotListBox.DisplayMember = "Name";
+            ballotListBox.DataSource = ballots;
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ballotListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            openDateLabel.Text = ((Ballot)ballotListBox.SelectedItem).OpenDate.ToLocalTime().ToString("g");
+            dueDateLabel.Text = ((Ballot)ballotListBox.SelectedItem).DueDate.ToLocalTime().ToString("g");
+        }
+
+        private void label2_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

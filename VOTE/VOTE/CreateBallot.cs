@@ -16,5 +16,15 @@ namespace VOTE
         {
             InitializeComponent();
         }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void submitButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

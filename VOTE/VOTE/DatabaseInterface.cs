@@ -51,7 +51,7 @@ namespace VOTE
                 {
                     command.CommandText = "UPDATE Ballot SET dueDate = @dueDate WHERE ballotID = @ballotID";
                     command.Parameters.AddWithValue("@ballotID", ballot.BallotId);
-                    command.Parameters.AddWithValue("@dueDate", ballot.DueDate);
+                    command.Parameters.AddWithValue("@dueDate", date);
                     command.ExecuteNonQuery();
                 }
             }

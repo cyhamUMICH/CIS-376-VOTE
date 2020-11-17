@@ -44,17 +44,25 @@ namespace VOTE
             if (this.user.Administrator == true)
             {
                 ballots = database.getAllBallots();
-                disableButton.Enabled = false;
-                createButton.Enabled = false;
             } else
             {
                 ballots = database.getActiveBallots();
+                disableButton.Enabled = false;
+                createButton.Enabled = false;
             }
 
+            ballotListBox.DisplayMember = "Name";
+            ballotListBox.DataSource = ballots;
+
+            /*
             foreach (Ballot ballot in ballots)
             {
+                ListViewItem item = new ListViewItem();
+                item.Text = "";
+                item.Tag = ballot;
+
                 ballotListBox.Items.Add(ballot);
-            }
+            }*/
         }
 
         private void disableButton_Click(object sender, EventArgs e)

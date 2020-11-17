@@ -61,6 +61,7 @@
             this.disableButton.TabIndex = 2;
             this.disableButton.Text = "Disable Ballot";
             this.disableButton.UseVisualStyleBackColor = true;
+            this.disableButton.Click += new System.EventHandler(this.disableButton_Click);
             // 
             // viewButton
             // 
@@ -93,6 +94,7 @@
             this.Controls.Add(this.ballotListBox);
             this.Name = "SelectBallot";
             this.Text = "VOTE - Select Ballot";
+            this.Load += new System.EventHandler(this.SelectBallot_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

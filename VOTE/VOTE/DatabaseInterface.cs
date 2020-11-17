@@ -41,6 +41,11 @@ namespace VOTE
             return instance;
         }
 
+        public void changeBallotDate(Ballot ballot, DateTime date)
+        {
+
+        }
+
         public void createNewUser(User user)
         {
             connection.Open();
@@ -70,6 +75,87 @@ namespace VOTE
 
                 connection.Close();
             }
+        }
+
+        public List<Ballot> getAllBallots()
+        {
+            connection.Open();
+
+            List<Ballot> ballots = new List<Ballot>();
+
+            try
+            {
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT * FROM [Ballot]";
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int ballotId = reader.GetInt32(0);
+                            string ballotName = reader.GetString(1);
+                            DateTime openDate = reader.GetDateTime(2);
+                            DateTime dueDate = reader.GetDateTime(3);
+
+                            Ballot ballot = new Ballot(ballotId, ballotName, openDate, dueDate);
+
+                            ballots.Add(ballot);
+                        }
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return ballots;
+        }
+
+        public List<Ballot> getActiveBallots()
+        {
+            connection.Open();
+
+            List<Ballot> ballots = new List<Ballot>();
+
+            try
+            {
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT * FROM [Ballot] WHERE OpenDate < @now AND DueDate > @now";
+                    command.Parameters.AddWithValue("@now", DateTime.UtcNow);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int ballotId = reader.GetInt32(0);
+                            string ballotName = reader.GetString(1);
+                            DateTime openDate = reader.GetDateTime(2);
+                            DateTime dueDate = reader.GetDateTime(3);
+
+                            Ballot ballot = new Ballot(ballotId, ballotName, openDate, dueDate);
+
+                            ballots.Add(ballot);
+                        }
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return ballots;
         }
 
         public User authenticateUser(string username, string password)

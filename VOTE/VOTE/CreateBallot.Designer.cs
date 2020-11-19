@@ -56,6 +56,7 @@
             this.questionsListBox.Name = "questionsListBox";
             this.questionsListBox.Size = new System.Drawing.Size(148, 251);
             this.questionsListBox.TabIndex = 0;
+            this.questionsListBox.SelectedIndexChanged += new System.EventHandler(this.questionsListBox_SelectedIndexChanged);
             // 
             // optionsListBox
             // 
@@ -67,7 +68,7 @@
             // 
             // ballotNameTextBox
             // 
-            this.ballotNameTextBox.Location = new System.Drawing.Point(12, 49);
+            this.ballotNameTextBox.Location = new System.Drawing.Point(16, 50);
             this.ballotNameTextBox.Name = "ballotNameTextBox";
             this.ballotNameTextBox.Size = new System.Drawing.Size(148, 20);
             this.ballotNameTextBox.TabIndex = 2;
@@ -75,7 +76,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 30);
+            this.label1.Location = new System.Drawing.Point(16, 30);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(67, 13);
             this.label1.TabIndex = 3;
@@ -107,6 +108,7 @@
             this.addQuestionButton.TabIndex = 6;
             this.addQuestionButton.Text = "Add";
             this.addQuestionButton.UseVisualStyleBackColor = true;
+            this.addQuestionButton.Click += new System.EventHandler(this.addQuestionButton_Click);
             // 
             // removeQuestionButton
             // 
@@ -116,6 +118,7 @@
             this.removeQuestionButton.TabIndex = 7;
             this.removeQuestionButton.Text = "Remove";
             this.removeQuestionButton.UseVisualStyleBackColor = true;
+            this.removeQuestionButton.Click += new System.EventHandler(this.removeQuestionButton_Click);
             // 
             // questionTextBox
             // 
@@ -135,7 +138,7 @@
             // 
             // optionTextBox
             // 
-            this.optionTextBox.Location = new System.Drawing.Point(19, 231);
+            this.optionTextBox.Location = new System.Drawing.Point(16, 231);
             this.optionTextBox.Name = "optionTextBox";
             this.optionTextBox.Size = new System.Drawing.Size(141, 20);
             this.optionTextBox.TabIndex = 10;
@@ -144,7 +147,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(19, 212);
+            this.label5.Location = new System.Drawing.Point(16, 215);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(41, 13);
             this.label5.TabIndex = 11;
@@ -152,12 +155,13 @@
             // 
             // addOptionButton
             // 
-            this.addOptionButton.Location = new System.Drawing.Point(19, 257);
+            this.addOptionButton.Location = new System.Drawing.Point(16, 257);
             this.addOptionButton.Name = "addOptionButton";
             this.addOptionButton.Size = new System.Drawing.Size(49, 23);
             this.addOptionButton.TabIndex = 12;
             this.addOptionButton.Text = "Add";
             this.addOptionButton.UseVisualStyleBackColor = true;
+            this.addOptionButton.Click += new System.EventHandler(this.addOptionButton_Click);
             // 
             // removeOptionButton
             // 
@@ -167,6 +171,7 @@
             this.removeOptionButton.TabIndex = 13;
             this.removeOptionButton.Text = "Remove";
             this.removeOptionButton.UseVisualStyleBackColor = true;
+            this.removeOptionButton.Click += new System.EventHandler(this.removeOptionButton_Click);
             // 
             // submitButton
             // 
@@ -180,14 +185,14 @@
             // 
             // openDatePicker
             // 
-            this.openDatePicker.Location = new System.Drawing.Point(22, 337);
+            this.openDatePicker.Location = new System.Drawing.Point(16, 337);
             this.openDatePicker.Name = "openDatePicker";
             this.openDatePicker.Size = new System.Drawing.Size(200, 20);
             this.openDatePicker.TabIndex = 15;
             // 
             // dueDatePicker
             // 
-            this.dueDatePicker.Location = new System.Drawing.Point(22, 395);
+            this.dueDatePicker.Location = new System.Drawing.Point(16, 395);
             this.dueDatePicker.Name = "dueDatePicker";
             this.dueDatePicker.Size = new System.Drawing.Size(200, 20);
             this.dueDatePicker.TabIndex = 16;
@@ -195,7 +200,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(22, 318);
+            this.label6.Location = new System.Drawing.Point(16, 321);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(59, 13);
             this.label6.TabIndex = 17;
@@ -204,7 +209,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(22, 379);
+            this.label7.Location = new System.Drawing.Point(16, 379);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(53, 13);
             this.label7.TabIndex = 18;
@@ -236,6 +241,7 @@
             this.Controls.Add(this.questionsListBox);
             this.Name = "CreateBallot";
             this.Text = "VOTE - Create Ballot";
+            this.Load += new System.EventHandler(this.CreateBallot_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

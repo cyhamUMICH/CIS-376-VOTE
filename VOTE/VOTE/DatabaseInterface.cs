@@ -41,6 +41,97 @@ namespace VOTE
             return instance;
         }
 
+        public void storeOption(Option option)
+        {
+            connection.Open();
+
+            try
+            {
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "INSERT INTO Option(questionID, option) VALUES(@questionID, @option)";
+                    command.Parameters.AddWithValue("@questionID", option.QuestionId);
+                    command.Parameters.AddWithValue("@option", option.OptionText);
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public void storeQuestion(Question question)
+        {
+            connection.Open();
+
+            try
+            {
+                using(SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "INSERT INTO Question(ballotID, question) OUTPUT INSERTED.questionID VALUES(@ballotID, @question)";
+                    command.Parameters.AddWithValue("@ballotID", question.BallotId);
+                    command.Parameters.AddWithValue("@question", question.QuestionText);
+
+                    int modified = (int)command.ExecuteScalar();
+                    foreach (Option option in question.Options)
+                    {
+                        option.QuestionId = modified;
+                        storeOption(option);
+
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+
+        public void storeBallot(Ballot ballot)
+        {
+            connection.Open();
+
+
+            try
+            {
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "INSERT INTO Ballot(ballotName, openDate, dueDate) OUTPUT INSERTED.ballotID VALUES(@ballotName, @openDate, @dueDate)";
+                    command.Parameters.AddWithValue("@ballotName", ballot.Name);
+                    command.Parameters.AddWithValue("@openDate", ballot.OpenDate);
+                    command.Parameters.AddWithValue("@dueDate", ballot.DueDate);
+
+                    int modified = (int)command.ExecuteScalar();
+                    foreach(Question question in ballot.Questions)
+                    {
+                        question.BallotId = modified;
+                        storeQuestion(question);
+                        
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+
+        }
+
         public void changeBallotDueDate(Ballot ballot, DateTime date)
         {
             connection.Open();

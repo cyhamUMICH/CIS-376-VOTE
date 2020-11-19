@@ -45,7 +45,7 @@ namespace VOTE
             ballot.OpenDate = dueDatePicker.Value.ToUniversalTime();
             ballot.DueDate = dueDatePicker.Value.ToUniversalTime();
 
-            //database.storeBallot(ballot);
+            database.storeBallot(ballot);
         }
 
         private void CreateBallot_Load(object sender, EventArgs e)
@@ -57,12 +57,19 @@ namespace VOTE
         {
             ballot.Questions.Add(new Question(questionTextBox.Text));
             questionSource.ResetBindings(false);
+            questionTextBox.Clear();
         }
 
         private void removeQuestionButton_Click(object sender, EventArgs e)
         {
-            ballot.Questions.Remove((Question) questionsListBox.SelectedItem);
-            questionSource.ResetBindings(false);
+            if (questionsListBox.Items.Count > 0)
+            {
+                ballot.Questions.Remove((Question)questionsListBox.SelectedItem);
+
+                questionSource.ResetBindings(false);
+                
+            }
+
         }
 
         private void questionsListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -81,12 +88,16 @@ namespace VOTE
         {
             ((Question)questionsListBox.SelectedItem).Options.Add(new Option(optionTextBox.Text));
             optionSource.ResetBindings(false);
+            optionTextBox.Clear();
         }
 
         private void removeOptionButton_Click(object sender, EventArgs e)
         {
-            ((Question)questionsListBox.SelectedItem).Options.Remove((Option)optionsListBox.SelectedItem);
-            optionSource.ResetBindings(false);
+            if (optionsListBox.Items.Count > 0)
+            {
+                ((Question)questionsListBox.SelectedItem).Options.Remove((Option)optionsListBox.SelectedItem);
+                optionSource.ResetBindings(false);
+            }
         }
     }
 }

@@ -185,6 +185,8 @@
             // 
             // openDatePicker
             // 
+            this.openDatePicker.CustomFormat = "MM/dd/yyyy hh:mm:ss tt";
+            this.openDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.openDatePicker.Location = new System.Drawing.Point(16, 337);
             this.openDatePicker.Name = "openDatePicker";
             this.openDatePicker.Size = new System.Drawing.Size(200, 20);
@@ -192,6 +194,8 @@
             // 
             // dueDatePicker
             // 
+            this.dueDatePicker.CustomFormat = "MM/dd/yyyy hh:mm:ss tt";
+            this.dueDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dueDatePicker.Location = new System.Drawing.Point(16, 395);
             this.dueDatePicker.Name = "dueDatePicker";
             this.dueDatePicker.Size = new System.Drawing.Size(200, 20);

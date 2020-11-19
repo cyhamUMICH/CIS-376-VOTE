@@ -49,15 +49,15 @@ namespace VOTE
             {
                 using (SqlCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = "INSERT INTO Option(questionID, option) VALUES(@questionID, @option)";
+                    command.CommandText = "INSERT INTO [Option](questionID, [option]) VALUES(@questionID, @option)";
                     command.Parameters.AddWithValue("@questionID", option.QuestionId);
                     command.Parameters.AddWithValue("@option", option.OptionText);
                     command.ExecuteNonQuery();
                 }
             }
-            catch
+            catch (Exception e)
             {
-
+                MessageBox.Show(e.Message);
             }
             finally
             {
@@ -68,7 +68,7 @@ namespace VOTE
         public void storeQuestion(Question question)
         {
             connection.Open();
-
+            int modified = 0;
             try
             {
                 using(SqlCommand command = connection.CreateCommand())
@@ -77,13 +77,7 @@ namespace VOTE
                     command.Parameters.AddWithValue("@ballotID", question.BallotId);
                     command.Parameters.AddWithValue("@question", question.QuestionText);
 
-                    int modified = (int)command.ExecuteScalar();
-                    foreach (Option option in question.Options)
-                    {
-                        option.QuestionId = modified;
-                        storeOption(option);
-
-                    }
+                    modified = (int)command.ExecuteScalar();
                 }
             }
             catch
@@ -94,13 +88,19 @@ namespace VOTE
             {
                 connection.Close();
             }
+            foreach (Option option in question.Options)
+            {
+                option.QuestionId = modified;
+                storeOption(option);
+
+            }
         }
 
 
         public void storeBallot(Ballot ballot)
         {
             connection.Open();
-
+            int modified = 0;
 
             try
             {
@@ -111,13 +111,7 @@ namespace VOTE
                     command.Parameters.AddWithValue("@openDate", ballot.OpenDate);
                     command.Parameters.AddWithValue("@dueDate", ballot.DueDate);
 
-                    int modified = (int)command.ExecuteScalar();
-                    foreach(Question question in ballot.Questions)
-                    {
-                        question.BallotId = modified;
-                        storeQuestion(question);
-                        
-                    }
+                    modified = (int)command.ExecuteScalar();
                 }
             }
             catch
@@ -128,7 +122,12 @@ namespace VOTE
             {
                 connection.Close();
             }
+            foreach (Question question in ballot.Questions)
+            {
+                question.BallotId = modified;
+                storeQuestion(question);
 
+            }
 
         }
 

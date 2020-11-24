@@ -74,6 +74,10 @@ namespace VOTE
 
         private void questionsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (questionsListBox.SelectedIndex == -1)
+            {
+                return;
+            }
             try
             {
                 optionSource.DataSource = ((Question)questionsListBox.SelectedItem).Options;
@@ -86,9 +90,15 @@ namespace VOTE
 
         private void addOptionButton_Click(object sender, EventArgs e)
         {
-            ((Question)questionsListBox.SelectedItem).Options.Add(new Option(optionTextBox.Text));
-            optionSource.ResetBindings(false);
-            optionTextBox.Clear();
+            try
+            {
+                ((Question)questionsListBox.SelectedItem).Options.Add(new Option(optionTextBox.Text));
+                optionSource.ResetBindings(false);
+                optionTextBox.Clear();
+            } catch (Exception ex)
+            {
+                MessageBox.Show("In order to add an option, you need to create a question first.");
+            }
         }
 
         private void removeOptionButton_Click(object sender, EventArgs e)

@@ -27,8 +27,15 @@ namespace VOTE
 
         private void viewButton_Click(object sender, EventArgs e)
         {
-            ViewBallot viewBallot = new ViewBallot();
-            viewBallot.Show();
+            try
+            {
+                ViewBallot viewBallot = new ViewBallot((Ballot)ballotListBox.SelectedItem, user);
+                viewBallot.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No ballot selected.");
+            }
         }
 
         private void createButton_Click(object sender, EventArgs e)

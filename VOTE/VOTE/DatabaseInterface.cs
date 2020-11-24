@@ -208,6 +208,7 @@ namespace VOTE
                             DateTime dueDate = reader.GetDateTime(3);
 
                             Ballot ballot = new Ballot(ballotId, ballotName, openDate, dueDate);
+                           
 
                             ballots.Add(ballot);
                         }
@@ -221,6 +222,10 @@ namespace VOTE
             finally
             {
                 connection.Close();
+            }
+            foreach(Ballot ballot in ballots)
+            {
+                ballot.Questions = getQuestions(ballot);
             }
 
             return ballots;
@@ -249,6 +254,7 @@ namespace VOTE
                             DateTime dueDate = reader.GetDateTime(3);
 
                             Ballot ballot = new Ballot(ballotId, ballotName, openDate, dueDate);
+                            
 
                             ballots.Add(ballot);
                         }
@@ -263,8 +269,93 @@ namespace VOTE
             {
                 connection.Close();
             }
+            foreach(Ballot ballot in ballots)
+            {
+                ballot.Questions = getQuestions(ballot);
+            }
 
             return ballots;
+        }
+
+        public List<Question> getQuestions(Ballot ballot)
+        {
+            connection.Open();
+
+            List<Question> questions = new List<Question>();
+
+            try
+            {
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT * FROM [Question] WHERE [ballotID]=@ballotID";
+                    command.Parameters.AddWithValue("@ballotID", ballot.BallotId);
+
+                    using(SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int questionID = reader.GetInt32(0);
+                            int ballotID = reader.GetInt32(1);
+                            String question = reader.GetString(2);
+
+                            Question newQuestion = new Question(questionID, ballotID, question);
+
+                            questions.Add(newQuestion);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+            foreach(Question question in questions)
+            {
+                question.Options = GetOptions(question);
+            }
+            return questions;
+        }
+
+        public List<Option> GetOptions(Question question)
+        {
+            connection.Open();
+
+            List<Option> options = new List<Option>();
+
+            try
+            {
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "SELECT * FROM [Option] WHERE questionID=@questionID";
+                    command.Parameters.AddWithValue("@questionID", question.QuestionId);
+
+                    using(SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int questionId = reader.GetInt32(0);
+                            int optionId = reader.GetInt32(1);
+                            String option = reader.GetString(2);
+
+                            Option newOption = new Option(optionId, questionId, option);
+                            options.Add(newOption);
+                        }
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+               connection.Close();
+            }
+            return options;
         }
 
         public User authenticateUser(string username, string password)

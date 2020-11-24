@@ -17,7 +17,7 @@ namespace VOTE
         public String Race { get; set; }
         public Boolean Administrator { get; set; }
 
-        public User(String username, String password, String state, String dateOfBirth, String gender, String race)
+        public User(String username, String password, String state, string dateOfBirth, String gender, String race)
         {
             this.Username = username;
             this.Password = password;

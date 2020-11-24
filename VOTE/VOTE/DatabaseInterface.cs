@@ -128,7 +128,61 @@ namespace VOTE
                 storeQuestion(question);
 
             }
+        }
 
+        public void storeVote(Vote vote)
+        {
+            connection.Open();
+
+            try
+            {
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "INSERT INTO Vote(optionId, questionId, state, age, gender, race) VALUES(@optionId, @questionId, @userstate, @userage, @usergender, @userrace)";
+                    command.Parameters.AddWithValue("@optionId", vote.OptionID);
+                    command.Parameters.AddWithValue("@questionId", vote.QuestionID);
+                    command.Parameters.AddWithValue("@userstate", vote.UserState);
+                    command.Parameters.AddWithValue("@userage", vote.UserAge);
+                    command.Parameters.AddWithValue("@usergender", vote.UserGender);
+                    command.Parameters.AddWithValue("@userrace", vote.UserRace);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        public void storeUserBallot(User user, Ballot ballot, DateTime timestamp)
+        {
+            connection.Open();
+
+            try
+            {
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "INSERT INTO User_Ballot(userId, ballotId, timestamp) VALUES(@userId, @ballotId, @timestamp)";
+                    command.Parameters.AddWithValue("@userId", user.UserID);
+                    command.Parameters.AddWithValue("@ballotId", ballot.BallotId);
+                    command.Parameters.AddWithValue("@timestamp", timestamp);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
 
         public void changeBallotDueDate(Ballot ballot, DateTime date)

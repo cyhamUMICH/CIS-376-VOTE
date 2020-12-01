@@ -34,15 +34,10 @@ namespace VOTE
             optionsListBox.DataSource = optionSource;
         }
 
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void submitButton_Click(object sender, EventArgs e)
         {
             ballot.Name = ballotNameTextBox.Text;
-            ballot.OpenDate = dueDatePicker.Value.ToUniversalTime();
+            ballot.OpenDate = openDatePicker.Value.ToUniversalTime();
             ballot.DueDate = dueDatePicker.Value.ToUniversalTime();
 
             database.storeBallot(ballot);

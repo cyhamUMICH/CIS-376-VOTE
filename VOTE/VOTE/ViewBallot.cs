@@ -27,13 +27,20 @@ namespace VOTE
             ballotNameLabel.Text = "Ballot: " + ballot.Name;
         }
 
-        private void optionsPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void ViewBallot_Load(object sender, EventArgs e)
         {
+            List<Vote> votes = database.getVotes(this.ballot);
+            int totalVotes = votes.Count();
+            if (ballot.DueDate < DateTime.UtcNow)
+            {
+                submitButton.Hide();
+                totalVotesLabel.Text = "Total Votes: " + totalVotes.ToString();
+            }
+            else
+            {
+                totalVotesLabel.Hide();
+            }
+
             int height = 0;
             int lastHeight = 0;
 
@@ -43,14 +50,14 @@ namespace VOTE
 
                 Panel panel = new Panel();
                 panel.Location = new Point(0, height);
-                panel.Width = 100;
-                panel.Height = 100;
+                panel.AutoSize = true;
+                panel.AutoSizeMode = AutoSizeMode.GrowOnly;
                 optionsPanel.Controls.Add(panel);
 
-                Label label = new Label();
-                label.Text = q.QuestionText;
-                label.Location = new Point(10, 0); // temp
-                panel.Controls.Add(label);
+                Label questionLabel = new Label();
+                questionLabel.Text = q.QuestionText;
+                questionLabel.Location = new Point(10, 0);
+                panel.Controls.Add(questionLabel);
                 height += 20;
 
                 for (int option = 0; option < q.Options.Count; option++)
@@ -60,7 +67,22 @@ namespace VOTE
                     RadioButton radioButton = new RadioButton();
                     radioButton.Location = new Point(10, 20 + 20 * option);
                     radioButton.Text = o.OptionText;
+                    radioButton.AutoSize = true;
+                    radioButton.MinimumSize = new System.Drawing.Size(100, 24);
+                    radioButton.TextAlign = ContentAlignment.MiddleLeft;
                     panel.Controls.Add(radioButton);
+
+                    if (ballot.DueDate < DateTime.UtcNow)
+                    {
+                        int count = votes.Where(v => v.OptionID == o.OptionId).Count();
+                        int votesForQuestion = votes.Where(v => v.QuestionID == q.QuestionId).Count();
+                        double percentage = (votesForQuestion == 0) ? 0 : ((double)count / votesForQuestion) * 100;
+                        Label resultLabel = new Label();
+                        resultLabel.Text = count.ToString() + "    " + Math.Round(percentage, 2) + "%";
+                        resultLabel.TextAlign = ContentAlignment.MiddleLeft;
+                        resultLabel.Location = new Point(20 + radioButton.Size.Width, 20 + 20 * option);
+                        panel.Controls.Add(resultLabel);
+                    }
                     height += 20;
                 }
 
@@ -68,7 +90,6 @@ namespace VOTE
 
                 panel.Height = height - lastHeight;
                 lastHeight = height;
-                //optionsPanel.Controls.Add(panel);
             }
         }
 
@@ -94,7 +115,7 @@ namespace VOTE
                 {
                     Option o = q.Options[option];
 
-                    if (o.OptionText == checkedButton.Text) votes.Add(new Vote(o.OptionId, q.QuestionId, true, user.State, age, user.Gender, user.Race));
+                    if (o.OptionText == checkedButton.Text) votes.Add(new Vote(o.OptionId, q.QuestionId, user.State, age, user.Gender, user.Race));
                 }
             }
 

@@ -285,7 +285,7 @@ namespace VOTE
             return ballots;
         }
 
-        public List<Ballot> getActiveBallots()
+        public List<Ballot> getActiveBallots(User user)
         {
             connection.Open();
 
@@ -295,8 +295,10 @@ namespace VOTE
             {
                 using (SqlCommand command = connection.CreateCommand())
                 {
-                    command.CommandText = "SELECT * FROM [Ballot] WHERE OpenDate < @now AND DueDate > @now";
+                    command.CommandText = "SELECT * FROM [Ballot] WHERE OpenDate < @now AND DueDate > @now AND BallotId NOT IN " +
+                        "(SELECT BallotId FROM [User_Ballot] WHERE UserId = @userId);";
                     command.Parameters.AddWithValue("@now", DateTime.UtcNow);
+                    command.Parameters.AddWithValue("@userId", user.UserID);
 
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
@@ -410,6 +412,61 @@ namespace VOTE
                connection.Close();
             }
             return options;
+        }
+
+        public List<Vote> getVotes(Ballot ballot)
+        {
+            connection.Open();
+
+            List<Vote> votes = new List<Vote>();
+
+            try
+            {
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    string questionIDs = "";
+                    List<int> questionIDList = new List<int>();
+                    foreach(Question question in ballot.Questions)
+                    {
+                        questionIDList.Add(question.QuestionId);
+                    }
+
+                    if (questionIDList.Count() > 0)
+                    {
+                        questionIDs = String.Join(", ", questionIDList);
+                        command.CommandText = "SELECT * FROM [Vote] WHERE [questionID] IN (" + questionIDs + ")";
+                        command.Parameters.AddWithValue("@ballotID", ballot.BallotId);
+
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                int optionID = reader.GetInt32(0);
+                                int questionID = reader.GetInt32(1);
+                                string state = reader.GetString(2);
+                                int age = reader.GetInt32(3);
+                                string gender = reader.GetString(4);
+                                string race = reader.GetString(5);
+                                int voteID = reader.GetInt32(6);
+
+                                Vote newVote = new Vote(voteID, optionID, questionID, state, age, gender, race);
+
+                                votes.Add(newVote);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return votes;
         }
 
         public User authenticateUser(string username, string password)

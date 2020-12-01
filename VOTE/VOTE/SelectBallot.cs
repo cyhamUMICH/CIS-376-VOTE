@@ -14,7 +14,6 @@ namespace VOTE
     {
         User user;
 
-        //List<Ballot> ballots;
         DatabaseInterface database;
 
         public SelectBallot(User user)
@@ -54,29 +53,16 @@ namespace VOTE
             }
 
             updateItems();
-            /*
-            foreach (Ballot ballot in ballots)
-            {
-                ListViewItem item = new ListViewItem();
-                item.Text = "";
-                item.Tag = ballot;
-
-                ballotListBox.Items.Add(ballot);
-            }*/
         }
 
         private void disableButton_Click(object sender, EventArgs e)
         {
             DateTime now = DateTime.UtcNow;
-            Ballot ballot;
-
-            ballot = (Ballot)ballotListBox.SelectedItem;
+            Ballot ballot = (Ballot)ballotListBox.SelectedItem;
 
             this.database.changeBallotDueDate(ballot, now);
 
             updateItems();
-
-            // Modify date of ballot to current date
         }
 
         private void updateItems()
@@ -89,27 +75,17 @@ namespace VOTE
             }
             else
             {
-                ballots = database.getActiveBallots();
+                ballots = database.getActiveBallots(this.user);
             }
 
             ballotListBox.DisplayMember = "Name";
             ballotListBox.DataSource = ballots;
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void ballotListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             openDateLabel.Text = ((Ballot)ballotListBox.SelectedItem).OpenDate.ToLocalTime().ToString("g");
             dueDateLabel.Text = ((Ballot)ballotListBox.SelectedItem).DueDate.ToLocalTime().ToString("g");
-        }
-
-        private void label2_Click_1(object sender, EventArgs e)
-        {
-
         }
     }
 }

@@ -142,7 +142,6 @@
             this.optionTextBox.Name = "optionTextBox";
             this.optionTextBox.Size = new System.Drawing.Size(141, 20);
             this.optionTextBox.TabIndex = 10;
-            this.optionTextBox.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // label5
             // 

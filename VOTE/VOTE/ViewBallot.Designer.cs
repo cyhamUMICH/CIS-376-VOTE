@@ -31,22 +31,24 @@
             this.optionsPanel = new System.Windows.Forms.Panel();
             this.submitButton = new System.Windows.Forms.Button();
             this.ballotNameLabel = new System.Windows.Forms.Label();
+            this.totalVotesLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // optionsPanel
             // 
             this.optionsPanel.AutoScroll = true;
-            this.optionsPanel.Location = new System.Drawing.Point(12, 43);
+            this.optionsPanel.Location = new System.Drawing.Point(16, 53);
+            this.optionsPanel.Margin = new System.Windows.Forms.Padding(4);
             this.optionsPanel.Name = "optionsPanel";
-            this.optionsPanel.Size = new System.Drawing.Size(776, 357);
+            this.optionsPanel.Size = new System.Drawing.Size(1387, 439);
             this.optionsPanel.TabIndex = 1;
-            this.optionsPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.optionsPanel_Paint);
             // 
             // submitButton
             // 
-            this.submitButton.Location = new System.Drawing.Point(326, 483);
+            this.submitButton.Location = new System.Drawing.Point(435, 594);
+            this.submitButton.Margin = new System.Windows.Forms.Padding(4);
             this.submitButton.Name = "submitButton";
-            this.submitButton.Size = new System.Drawing.Size(79, 24);
+            this.submitButton.Size = new System.Drawing.Size(105, 30);
             this.submitButton.TabIndex = 2;
             this.submitButton.Text = "Submit";
             this.submitButton.UseVisualStyleBackColor = true;
@@ -55,20 +57,33 @@
             // ballotNameLabel
             // 
             this.ballotNameLabel.AutoSize = true;
-            this.ballotNameLabel.Location = new System.Drawing.Point(9, 9);
+            this.ballotNameLabel.Location = new System.Drawing.Point(12, 11);
+            this.ballotNameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ballotNameLabel.Name = "ballotNameLabel";
-            this.ballotNameLabel.Size = new System.Drawing.Size(39, 13);
+            this.ballotNameLabel.Size = new System.Drawing.Size(51, 17);
             this.ballotNameLabel.TabIndex = 3;
             this.ballotNameLabel.Text = "Ballot: ";
             // 
+            // totalVotesLabel
+            // 
+            this.totalVotesLabel.AutoSize = true;
+            this.totalVotesLabel.Location = new System.Drawing.Point(1319, 11);
+            this.totalVotesLabel.Name = "totalVotesLabel";
+            this.totalVotesLabel.Size = new System.Drawing.Size(84, 17);
+            this.totalVotesLabel.TabIndex = 4;
+            this.totalVotesLabel.Text = "Total Votes:";
+            this.totalVotesLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // ViewBallot
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 565);
+            this.ClientSize = new System.Drawing.Size(1416, 695);
+            this.Controls.Add(this.totalVotesLabel);
             this.Controls.Add(this.ballotNameLabel);
             this.Controls.Add(this.submitButton);
             this.Controls.Add(this.optionsPanel);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ViewBallot";
             this.Text = "ViewBallot";
             this.Load += new System.EventHandler(this.ViewBallot_Load);
@@ -81,5 +96,6 @@
         private System.Windows.Forms.Panel optionsPanel;
         private System.Windows.Forms.Button submitButton;
         private System.Windows.Forms.Label ballotNameLabel;
+        private System.Windows.Forms.Label totalVotesLabel;
     }
 }

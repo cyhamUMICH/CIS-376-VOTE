@@ -42,17 +42,20 @@
             // ballotListBox
             // 
             this.ballotListBox.FormattingEnabled = true;
-            this.ballotListBox.Location = new System.Drawing.Point(25, 53);
+            this.ballotListBox.ItemHeight = 16;
+            this.ballotListBox.Location = new System.Drawing.Point(33, 54);
+            this.ballotListBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ballotListBox.Name = "ballotListBox";
-            this.ballotListBox.Size = new System.Drawing.Size(315, 316);
+            this.ballotListBox.Size = new System.Drawing.Size(420, 388);
             this.ballotListBox.TabIndex = 0;
             this.ballotListBox.SelectedIndexChanged += new System.EventHandler(this.ballotListBox_SelectedIndexChanged);
             // 
             // createButton
             // 
-            this.createButton.Location = new System.Drawing.Point(25, 433);
+            this.createButton.Location = new System.Drawing.Point(33, 522);
+            this.createButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.createButton.Name = "createButton";
-            this.createButton.Size = new System.Drawing.Size(315, 23);
+            this.createButton.Size = new System.Drawing.Size(420, 28);
             this.createButton.TabIndex = 1;
             this.createButton.Text = "Create New Ballot";
             this.createButton.UseVisualStyleBackColor = true;
@@ -60,9 +63,10 @@
             // 
             // disableButton
             // 
-            this.disableButton.Location = new System.Drawing.Point(25, 404);
+            this.disableButton.Location = new System.Drawing.Point(33, 486);
+            this.disableButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.disableButton.Name = "disableButton";
-            this.disableButton.Size = new System.Drawing.Size(315, 23);
+            this.disableButton.Size = new System.Drawing.Size(420, 28);
             this.disableButton.TabIndex = 2;
             this.disableButton.Text = "Disable Ballot";
             this.disableButton.UseVisualStyleBackColor = true;
@@ -70,9 +74,10 @@
             // 
             // viewButton
             // 
-            this.viewButton.Location = new System.Drawing.Point(25, 375);
+            this.viewButton.Location = new System.Drawing.Point(33, 450);
+            this.viewButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.viewButton.Name = "viewButton";
-            this.viewButton.Size = new System.Drawing.Size(315, 23);
+            this.viewButton.Size = new System.Drawing.Size(420, 28);
             this.viewButton.TabIndex = 3;
             this.viewButton.Text = "View Ballot";
             this.viewButton.UseVisualStyleBackColor = true;
@@ -81,55 +86,58 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 37);
+            this.label1.Location = new System.Drawing.Point(30, 33);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(69, 13);
+            this.label1.Size = new System.Drawing.Size(92, 17);
             this.label1.TabIndex = 4;
             this.label1.Text = "List of Ballots";
             // 
             // openDateLabel
             // 
             this.openDateLabel.AutoSize = true;
-            this.openDateLabel.Location = new System.Drawing.Point(110, 37);
+            this.openDateLabel.Location = new System.Drawing.Point(147, 33);
+            this.openDateLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.openDateLabel.Name = "openDateLabel";
-            this.openDateLabel.Size = new System.Drawing.Size(35, 13);
+            this.openDateLabel.Size = new System.Drawing.Size(124, 17);
             this.openDateLabel.TabIndex = 5;
-            this.openDateLabel.Text = "label2";
-            this.openDateLabel.Click += new System.EventHandler(this.label2_Click);
+            this.openDateLabel.Text = "No Ballot Selected";
             // 
             // dueDateLabel
             // 
             this.dueDateLabel.AutoSize = true;
-            this.dueDateLabel.Location = new System.Drawing.Point(231, 37);
+            this.dueDateLabel.Location = new System.Drawing.Point(308, 33);
+            this.dueDateLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.dueDateLabel.Name = "dueDateLabel";
-            this.dueDateLabel.Size = new System.Drawing.Size(35, 13);
+            this.dueDateLabel.Size = new System.Drawing.Size(124, 17);
             this.dueDateLabel.TabIndex = 6;
-            this.dueDateLabel.Text = "label3";
+            this.dueDateLabel.Text = "No Ballot Selected";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(110, 9);
+            this.label2.Location = new System.Drawing.Point(147, 11);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 13);
+            this.label2.Size = new System.Drawing.Size(77, 17);
             this.label2.TabIndex = 7;
             this.label2.Text = "Open Date";
-            this.label2.Click += new System.EventHandler(this.label2_Click_1);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(231, 9);
+            this.label3.Location = new System.Drawing.Point(308, 11);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 13);
+            this.label3.Size = new System.Drawing.Size(68, 17);
             this.label3.TabIndex = 8;
             this.label3.Text = "Due Date";
             // 
             // SelectBallot
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(379, 468);
+            this.ClientSize = new System.Drawing.Size(505, 576);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dueDateLabel);
@@ -139,6 +147,7 @@
             this.Controls.Add(this.disableButton);
             this.Controls.Add(this.createButton);
             this.Controls.Add(this.ballotListBox);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "SelectBallot";
             this.Text = "VOTE - Select Ballot";
             this.Load += new System.EventHandler(this.SelectBallot_Load);

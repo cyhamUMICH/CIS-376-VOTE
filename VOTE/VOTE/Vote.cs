@@ -17,24 +17,22 @@ namespace VOTE
         public string UserGender { get; set; }
         public string UserRace { get; set; }
 
-        public Vote(int OptionID, int QuestionID, bool VoteStatus, string UserState, int UserAge, string UserGender, string UserRace)
+        public Vote(int OptionID, int QuestionID, string UserState, int UserAge, string UserGender, string UserRace)
         {
             this.VoteID = 0;
             this.OptionID = OptionID;
             this.QuestionID = QuestionID;
-            this.VoteStatus = VoteStatus;
             this.UserState = UserState;
             this.UserAge = UserAge;
             this.UserGender = UserGender;
             this.UserRace = UserRace;
         }
 
-        public Vote(int VoteID, int OptionID, int QuestionID, bool VoteStatus, string UserState, int UserAge, string UserGender, string UserRace)
+        public Vote(int VoteID, int OptionID, int QuestionID, string UserState, int UserAge, string UserGender, string UserRace)
         {
             this.VoteID = VoteID;
             this.OptionID = OptionID;
             this.QuestionID = QuestionID;
-            this.VoteStatus = VoteStatus;
             this.UserState = UserState;
             this.UserAge = UserAge;
             this.UserGender = UserGender;

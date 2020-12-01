@@ -30,10 +30,8 @@ namespace VOTE
 
             if (user != null)
             {
-                //this.Hide();
                 SelectBallot selectBallot = new SelectBallot(user);
                 selectBallot.Show();
-                //this.Close();
             } else
             {
                 MessageBox.Show("Either user does not exist or password is incorrect");
@@ -65,10 +63,8 @@ namespace VOTE
 
             database.createNewUser(user);
 
-            //this.Hide();
             SelectBallot selectBallot = new SelectBallot(user);
             selectBallot.Show();
-            //this.Close();
         }
     }
 }

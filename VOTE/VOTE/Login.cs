@@ -18,7 +18,7 @@ namespace VOTE
         {
             InitializeComponent();
 
-            database = DatabaseInterface.getInstance();
+            database = DatabaseInterface.getInstance(); // Get the instance of the database interface
         }
 
         private void loginButton_Click(object sender, EventArgs e)
@@ -26,15 +26,15 @@ namespace VOTE
             String username = loginUsernameTextBox.Text;
             String password = loginPasswordTextBox.Text;
 
-            User user = database.authenticateUser(username, password);
+            User user = database.authenticateUser(username, password);  // Have the database authenticate that the user exists
 
             if (user != null)
             {
-                SelectBallot selectBallot = new SelectBallot(user);
+                SelectBallot selectBallot = new SelectBallot(user); // Show the select ballot screen
                 selectBallot.Show();
             } else
             {
-                MessageBox.Show("Either user does not exist or password is incorrect");
+                MessageBox.Show("Either user does not exist or password is incorrect"); // Is null, so something didn't go right with authentication
             }
         }
 
@@ -53,17 +53,17 @@ namespace VOTE
                 return;
             }
 
-            if (database.doesUserExist(username))
+            if (database.doesUserExist(username))   // If user already exists, don't allow another to be created
             {
                 MessageBox.Show("User with given username already exists");
                 return;
             }
 
-            User user = new User(username, password, state, birthdate, gender, race);
+            User user = new User(username, password, state, birthdate, gender, race);   // Create new user object with given fields
 
-            database.createNewUser(user);
+            database.createNewUser(user);   // Insert object into database
 
-            SelectBallot selectBallot = new SelectBallot(user);
+            SelectBallot selectBallot = new SelectBallot(user); // Display the select ballot UI with the new user
             selectBallot.Show();
         }
     }

@@ -30,6 +30,7 @@ namespace VOTE
             {
                 ViewBallot viewBallot = new ViewBallot((Ballot)ballotListBox.SelectedItem, user);
                 viewBallot.Show();
+                this.Close();
             }
             catch (Exception ex)
             {

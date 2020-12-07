@@ -56,6 +56,7 @@ namespace VOTE
 
                 Label questionLabel = new Label();
                 questionLabel.Text = q.QuestionText;
+                questionLabel.AutoSize = true;
                 questionLabel.Location = new Point(10, 0);
                 panel.Controls.Add(questionLabel);
                 height += 20;
@@ -127,6 +128,9 @@ namespace VOTE
             database.storeUserBallot(user, ballot, DateTime.UtcNow);
 
             MessageBox.Show("Vote successfully submitted");
+
+            SelectBallot selectBallot = new SelectBallot(this.user);
+            selectBallot.Show();
 
             this.Close();
         }

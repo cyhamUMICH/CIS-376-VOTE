@@ -22,25 +22,28 @@ namespace VOTE
         {
             InitializeComponent();
 
-            ballot = new Ballot();
-            database = DatabaseInterface.getInstance();
+            ballot = new Ballot();  // Create a new ballot option to store the questions and options as they're created
+            database = DatabaseInterface.getInstance(); // Get the instance of the database interface
 
-            questionSource.DataSource = ballot.Questions;
+            questionSource.DataSource = ballot.Questions;   // Set the ballot's list of questions to the source for the question list box
 
-            questionsListBox.DisplayMember = "QuestionText";
+            questionsListBox.DisplayMember = "QuestionText";    // Have the question list box display the question's text instead of an object id
             questionsListBox.DataSource = questionSource;
 
-            optionsListBox.DisplayMember = "OptionText";
+            optionsListBox.DisplayMember = "OptionText";    // Have the option list box display the option's text instead of an object id
             optionsListBox.DataSource = optionSource;
         }
 
         private void submitButton_Click(object sender, EventArgs e)
         {
-            ballot.Name = ballotNameTextBox.Text;
-            ballot.OpenDate = openDatePicker.Value.ToUniversalTime();
-            ballot.DueDate = dueDatePicker.Value.ToUniversalTime();
+            ballot.Name = ballotNameTextBox.Text;   // Set the ballot's name to the contents of the text box
+            ballot.OpenDate = openDatePicker.Value.ToUniversalTime();   // Set the opendate to the value given in the picker converted to utc
+            ballot.DueDate = dueDatePicker.Value.ToUniversalTime();     // Set the duedate to the value given in the picker converted to utc
 
-            database.storeBallot(ballot);
+            database.storeBallot(ballot);   // Store the ballot object in the database
+
+            MessageBox.Show("Ballot Successfully Created");
+            this.Close();   // Close the window
         }
 
         private void CreateBallot_Load(object sender, EventArgs e)
@@ -50,18 +53,18 @@ namespace VOTE
 
         private void addQuestionButton_Click(object sender, EventArgs e)
         {
-            ballot.Questions.Add(new Question(questionTextBox.Text));
-            questionSource.ResetBindings(false);
-            questionTextBox.Clear();
+            ballot.Questions.Add(new Question(questionTextBox.Text));   // Add a question with correct text to the list
+            questionSource.ResetBindings(false);    // Refresh the list in the listbox
+            questionTextBox.Clear();    // Clear the text box
         }
 
         private void removeQuestionButton_Click(object sender, EventArgs e)
         {
             if (questionsListBox.Items.Count > 0)
             {
-                ballot.Questions.Remove((Question)questionsListBox.SelectedItem);
+                ballot.Questions.Remove((Question)questionsListBox.SelectedItem);   // Remove item from the list
 
-                questionSource.ResetBindings(false);
+                questionSource.ResetBindings(false);    // Refresh the listbox
                 
             }
 
@@ -75,7 +78,7 @@ namespace VOTE
             }
             try
             {
-                optionSource.DataSource = ((Question)questionsListBox.SelectedItem).Options;
+                optionSource.DataSource = ((Question)questionsListBox.SelectedItem).Options;    // Set the option listbox to a different list of options
                 optionsListBox.DisplayMember = "OptionText";
             } catch (NullReferenceException exception)
             {
@@ -87,8 +90,8 @@ namespace VOTE
         {
             try
             {
-                ((Question)questionsListBox.SelectedItem).Options.Add(new Option(optionTextBox.Text));
-                optionSource.ResetBindings(false);
+                ((Question)questionsListBox.SelectedItem).Options.Add(new Option(optionTextBox.Text));  // Add a new option to a list of options
+                optionSource.ResetBindings(false);  // Refresh the listbox
                 optionTextBox.Clear();
             } catch (Exception ex)
             {
@@ -100,7 +103,7 @@ namespace VOTE
         {
             if (optionsListBox.Items.Count > 0)
             {
-                ((Question)questionsListBox.SelectedItem).Options.Remove((Option)optionsListBox.SelectedItem);
+                ((Question)questionsListBox.SelectedItem).Options.Remove((Option)optionsListBox.SelectedItem);  // Remove the object from the options list
                 optionSource.ResetBindings(false);
             }
         }

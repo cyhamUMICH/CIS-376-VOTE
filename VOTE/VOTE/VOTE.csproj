@@ -63,7 +63,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Administrator.cs" />
     <Compile Include="Ballot.cs" />
     <Compile Include="CreateBallot.cs">
       <SubType>Form</SubType>

@@ -29,8 +29,16 @@ namespace VOTE
             try
             {
                 ViewBallot viewBallot = new ViewBallot((Ballot)ballotListBox.SelectedItem, user);
-                viewBallot.Show();
-                this.Close();
+                
+                if (((Ballot)ballotListBox.SelectedItem).DueDate < DateTime.UtcNow && !user.Administrator)
+                {
+                    MessageBox.Show("This ballot has closed.");
+                }
+                else
+                {
+                    viewBallot.Show();
+                    this.Close();
+                }
             }
             catch (Exception ex)
             {

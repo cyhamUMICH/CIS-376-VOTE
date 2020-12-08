@@ -85,7 +85,7 @@
             this.Controls.Add(this.optionsPanel);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ViewBallot";
-            this.Text = "ViewBallot";
+            this.Text = "VOTE - View Ballot";
             this.Load += new System.EventHandler(this.ViewBallot_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

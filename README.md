@@ -10,4 +10,4 @@ Notes:
 Hasan Alameh, Grace Barna, Caroline Ham, Dean Lawrence
 
 # How to Deploy
-To run our program, simply run the VOTE.exe file. You do not need to do anything to connect to the database as this is handled in the program.
+To run our program, download this project as a ZIP folder. Then, unzip the folder and navigate to VOTE > VOTE > bin > Release. Finally, simply run the VOTE.exe file. You do not need to do anything to connect to the database as this is handled in the program.
